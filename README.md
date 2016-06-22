@@ -25,6 +25,6 @@ Installation
 
 Validation
 ----------
-In CloudFormation page Select the stack<br />
-Select Outputs tab<br />
+In CloudFormation page Select the stack  
+Select Outputs tab  
 Click on the URL. You should see Hello World page
