@@ -7,7 +7,7 @@ Assumptions
 1. An AWS VPC alreday setup
 2. Access to create CloudFormation stacks, EC2 instances, Security group etc
 3. Existing SSH Key-pair
-4. Existing subnet
+4. Existing public subnet
 
 Installation
 
