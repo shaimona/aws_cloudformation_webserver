@@ -1,0 +1,92 @@
+{
+  "AWSTemplateFormatVersion" : "2010-09-09",
+
+  "Description" : "AWS CloudFormation template for creating a web server",
+
+  "Parameters" : {
+    "KeyName": {
+      "Description" : "Name of an existing EC2 KeyPair to enable SSH access to the instance",
+      "Type": "AWS::EC2::KeyPair::KeyName",
+      "ConstraintDescription" : "Can contain only ASCII characters."
+    },  
+    "InstanceType" : {
+      "Description" : "WebServer EC2 instance type",
+      "Type" : "String",
+      "Default" : "t2.micro",
+      "AllowedValues" : [ "t2.micro", "t2.small", "t2.medium", "m3.medium", "m3.large", "m3.xlarge", "m3.2xlarge" ],
+      "ConstraintDescription" : "Must be a valid EC2 instance type"
+    },
+    "SSHLocation" : {
+      "Description" : "The IP address range that can be used to SSH to the EC2 instances",
+      "Type": "String",
+      "MinLength": "9",
+      "MaxLength": "18",
+      "Default": "0.0.0.0/0",
+      "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
+      "ConstraintDescription": "Must be a valid IP CIDR range of the form x.x.x.x/x"
+    }, 
+    "Subnets" : {
+      "Description" : "Subnet where the instance reside in",
+      "Type": "AWS::EC2::Subnet::Id"
+    },
+    "VPC" : {
+      "Description" : "VPC ID where the instance needs to be created",
+      "Type": "AWS::EC2::VPC::Id"
+    }
+  },
+   
+  "Resources" : {
+
+    "WebServerInstance": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "ImageId" : "ami-f303fb93",
+        "InstanceType"   : { "Ref" : "InstanceType" },
+        "KeyName"        : { "Ref" : "KeyName" },
+        "NetworkInterfaces" : [{
+          "AssociatePublicIpAddress" : "True",
+          "SubnetId" : { "Ref" : "Subnets" },
+          "DeviceIndex" : "0",
+          "DeleteOnTermination" : "True",
+          "GroupSet" : [ { "Ref" : "WebServerSecurityGroup" } ]
+        }],
+
+        "UserData": {
+          "Fn::Base64": {
+            "Fn::Join": [
+               "",
+               [
+                 "#!/bin/bash\n",
+                 "\n",
+                 "yum update -y\n",
+                 "yum install -y httpd\n",
+                 "chkconfig httpd on\n",
+                 "service httpd start\n",
+                 "echo 'Hello World' > /var/www/html/index.html",
+                 "\n"
+               ]
+            ]
+          }
+        }
+      }
+    },
+    "WebServerSecurityGroup" : {
+      "Type" : "AWS::EC2::SecurityGroup",
+      "Properties" : {
+        "GroupDescription" : "Enable HTTP access via port 80",
+        "VpcId" : { "Ref" : "VPC" },
+        "SecurityGroupIngress" : [
+          {"IpProtocol" : "tcp", "FromPort" : "80", "ToPort" : "80", "CidrIp" : "0.0.0.0/0"},
+          {"IpProtocol" : "tcp", "FromPort" : "22", "ToPort" : "22", "CidrIp" : { "Ref" : "SSHLocation"}}
+        ]
+      }
+    }
+  },
+
+  "Outputs" : {
+    "WebsiteURL" : {
+      "Description" : "URL for newly created WebServer",
+      "Value" : { "Fn::Join" : ["", ["http://", { "Fn::GetAtt" : [ "WebServerInstance", "PublicDnsName" ]}]] }
+    }
+  }
+}
