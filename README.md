@@ -3,8 +3,8 @@
 This is AWS CloudFormation template for installing an Apache webserver with "Hello World" static web page.
 
 Assumptions
-1. An AWS VPC alreday setup
 
+1. An AWS VPC alreday setup
 2. Access to create CloudFormation stacks, EC2 instances, Security group etc
 3. Existing SSH Key-pair
 4. Existing subnet
