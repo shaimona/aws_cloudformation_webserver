@@ -4,8 +4,8 @@ This is AWS CloudFormation template for installing an Apache webserver with "Hel
 
 Assumptions
 -----------
-1. An AWS VPC alreday setup
-2. Access to create CloudFormation stacks, EC2 instances, Security group etc
+1. AWS VPC alreday setup
+2. Access to create CloudFormation stacks, EC2 instances, Security group
 3. Existing SSH Key-pair
 4. Existing public subnet
 
@@ -30,4 +30,4 @@ Validation
 ----------
 In CloudFormation page Select the stack  
 Select Outputs tab  
-Click on the URL. You should see Hello World page
+Click on the URL. You should see a page displaying "Automation for the People'
