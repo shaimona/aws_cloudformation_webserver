@@ -1,11 +1,11 @@
 # aws_cloudformation_webserver
 
-This is AWS CloudFormation template for installing an Apache webserver with "Hello World" static web page.
+This is AWS CloudFormation template for installing an Apache webserver with "Automation for the People" static web page.
 
 Assumptions
 -----------
-1. An AWS VPC alreday setup
-2. Access to create CloudFormation stacks, EC2 instances, Security group etc
+1. An AWS VPC already setup
+2. Access to create CloudFormation stacks, EC2 instances, and Security group
 3. Existing SSH Key-pair
 4. Existing public subnet
 
@@ -28,6 +28,6 @@ Click
 
 Validation
 ----------
-In CloudFormation page Select the stack  
-Select Outputs tab  
-Click on the URL. You should see Hello World page
+* In CloudFormation page Select the stack  
+* Select Outputs tab  
+* Click on the URL. You should see a static page displaying "Automation for the People'
