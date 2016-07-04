@@ -1,6 +1,6 @@
 # aws_cloudformation_webserver
 
-This is AWS CloudFormation template for installing an Apache webserver with "Automation for the People" static web page.
+This is an AWS CloudFormation template for installing an Apache webserver that display "Automation for the People" static web page.
 
 Assumptions
 -----------
@@ -8,10 +8,13 @@ Assumptions
 2. Access to create CloudFormation stacks, EC2 instances, and Security group
 3. Existing SSH Key-pair
 4. Existing public subnet
+5. AWS CLI installed
 
 Installation
 ------------
-Click
+###### Create CF stack vis AWS CLI  
+aws cloudformation create-stack --stack-name {stack_name} --template-body file://{CF_template_location} --parameters ParameterKey=KeyName,ParameterValue={key_name} ParameterKey=Subnets,ParameterValue={subnaet_id} ParameterKey=VPC,ParameterValue={vpc_id}  
+###### OR Click
 <a href="https://console.aws.amazon.com/cloudformation/home?region=us-west-2#/stacks/new?&templateURL=https://s3-us-west-2.amazonaws.com/shaimon-public-cf-templates/webserver.template" target="_blank"><img src="https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png"></a>  
 ###### OR follow these steps  
 1. Login to AWS web console and click on CloudFormation  
