@@ -34,13 +34,22 @@
       "Type": "AWS::EC2::VPC::Id"
     }
   },
-
+  "Mappings": {
+    "RegionMap": {
+      "us-west-2": {
+        "AMIAmz": "ami-f303fb93"
+      },
+      "us-east-1": {
+        "AMIAmz": "ami-6869aa05"
+      }
+    }
+  },
   "Resources" : {
 
     "WebServerInstance": {
       "Type": "AWS::EC2::Instance",
       "Properties": {
-        "ImageId" : "ami-f303fb93",
+        "ImageId" : {"Fn::FindInMap": ["RegionMap", {"Ref": "AWS::Region"}, "AMIAmz"]},
         "InstanceType"   : { "Ref" : "InstanceType" },
         "KeyName"        : { "Ref" : "KeyName" },
         "NetworkInterfaces" : [{
