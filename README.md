@@ -8,7 +8,8 @@ Assumptions
 2. Access to create CloudFormation stacks, EC2 instances, and Security group
 3. Existing SSH Key-pair
 4. Existing public subnet
-5. AWS CLI installed
+5. At least one un-allocated EIP
+6. AWS CLI installed
 
 Installation
 ------------
