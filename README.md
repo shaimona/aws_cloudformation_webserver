@@ -14,7 +14,7 @@ Assumptions
 Installation
 ------------
 ###### Create CF stack via AWS CLI  
-aws cloudformation create-stack --stack-name {stack_name} --template-body "https://s3-us-west-2.amazonaws.com/shaimon-public-cf-templates/webserver.template" --parameters ParameterKey=KeyName,ParameterValue={key_name} ParameterKey=PublicSubnet,ParameterValue={subnet_id} ParameterKey=VPC,ParameterValue={vpc_id}  
+aws cloudformation create-stack --stack-name {stack_name} --template-url "https://s3-us-west-2.amazonaws.com/shaimon-public-cf-templates/webserver.template" --parameters ParameterKey=KeyName,ParameterValue={key_name} ParameterKey=PublicSubnet,ParameterValue={subnet_id} ParameterKey=VPC,ParameterValue={vpc_id}  
 ###### OR Click
 <a href="https://console.aws.amazon.com/cloudformation/home?region=us-west-2#/stacks/new?&templateURL=https://s3-us-west-2.amazonaws.com/shaimon-public-cf-templates/webserver.template" target="_blank"><img src="https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png"></a>  
 ###### OR follow these steps  
